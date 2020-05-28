@@ -20,7 +20,7 @@ provider:
   name: aws
   runtime: java8
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'us-west-2'}
   iamRoleStatements:
     - Effect: Allow
       Action:
