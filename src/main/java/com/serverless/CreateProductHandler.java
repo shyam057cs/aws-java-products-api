@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
 import org.apache.log4j.Logger;
 import java.util.Collections;
 import java.util.Map;
@@ -19,14 +20,16 @@ public class CreateProductHandler implements RequestHandler<Map<String, Object>,
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 
       try {
+
+				// create the Product object for post
+				logger.info("Product - create request(): " + input.toString());
+
           // get the 'body' from input
           JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-
-          // create the Product object for post
           Product product = new Product();
           // product.setId(body.get("id").asText());
           product.setName(body.get("name").asText());
-          product.setPrice((float) body.get("price").asDouble());
+          product.setPrice(body.get("price").asDouble());
           product.save(product);
 
           // send the response back
@@ -37,7 +40,7 @@ public class CreateProductHandler implements RequestHandler<Map<String, Object>,
       				.build();
 
       } catch (Exception ex) {
-          logger.error("Error in saving product: " + ex);
+          logger.error("Error in saving product: " + Arrays.toString(ex.getStackTrace()));
 
           // send the error response back
     			Response responseBody = new Response("Error in saving product: ", input);

@@ -20,6 +20,7 @@ public class ListProductsHandler implements RequestHandler<Map<String, Object>, 
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
     try {
         // get all products
+			logger.info("Product - list request(): " + input.toString());
         List<Product> products = new Product().list();
 
         // send the response back

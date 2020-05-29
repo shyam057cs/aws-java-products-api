@@ -20,6 +20,7 @@ public class DeleteProductHandler implements RequestHandler<Map<String, Object>,
 
     try {
         // get the 'pathParameters' from input
+			  logger.info("Product - get request(): " + input.toString());
         Map<String,String> pathParameters =  (Map<String,String>)input.get("pathParameters");
         String productId = pathParameters.get("id");
 
